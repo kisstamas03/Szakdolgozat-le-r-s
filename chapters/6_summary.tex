@@ -1,0 +1,18 @@
+\chapter{Összefoglalás}
+
+A dolgozat egy Java alapú e-learning webalkalmazás — a ME Learning platform — tervezését és megvalósítását mutatta be. Az alkalmazás Spring Boot 3.x keretrendszerre épül, Thymeleaf sablon-motorral és H2 memória-adatbázissal, és a Miskolci Egyetem hallgatói számára nyújt kurzuskezelési, prezentáció-megjelenítési és kvíz-alapú tudásellenőrzési funkciókat.
+
+A fejlesztés során a következő főbb eredmények születtek:
+
+\begin{itemize}
+    \item Szerepkör-alapú hozzáférés-vezérlés megvalósítása három szerepkörrel (adminisztrátor, oktató, hallgató), Spring Security segítségével.
+    \item Kurzuskezelő rendszer, amely lehetővé teszi kurzusok létrehozását, módosítását, hallgatók beiratkoztatását és eltávolítását.
+    \item Prezentáció-feldolgozó modul, amely PowerPoint fájlokat (.ppt, .pptx) automatikusan PDF formátumba konvertál, magas felbontásban renderelve az egyes diákat az Apache POI és PDFBox könyvtárak segítségével.
+    \item Kvízrendszer, amely az oktatók által létrehozott teszteket kezeli, eredményeket rögzít, statisztikákat számít, és visszamenőleges osztályzat-újraszámítást tesz lehetővé.
+    \item E-mail értesítési funkció Gmail SMTP-n keresztül.
+    \item Reszponzív, felhasználóbarát felhasználói felület Thymeleaf sablonokkal és egyedi CSS stíluslapokkal.
+\end{itemize}
+
+Az alkalmazás a kitűzött funkcionális követelményeket teljesíti. A manuális tesztelés során az összes azonosított teszteset sikeresen lefutott. A rendszer könnyen bővíthető: a H2 adatbázis éles környezetben PostgreSQL-re cserélhető, és az architektúra lehetővé teszi REST API réteg hozzáadását is.
+
+A fejlesztés során szerzett tapasztalatok alapján a jövőbeli fejlesztési irányok között szerepel a fájlok adatbázison kívüli tárolása, a részletesebb teljesítménystatisztikák bevezetése, valamint a mobilalkalmazás-integráció lehetősége.

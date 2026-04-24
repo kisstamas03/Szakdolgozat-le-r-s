@@ -1,0 +1,592 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nyt/global//global/global}
+  \entry{allen2013changing}{article}{}
+    \name{author}{2}{}{%
+      {{hash=AIE}{%
+         family={Allen},
+         familyi={A\bibinitperiod},
+         given={I.\bibnamedelima Elaine},
+         giveni={I\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Seaman},
+         familyi={S\bibinitperiod},
+         given={Jeff},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Babson College}%
+    }
+    \strng{namehash}{AIESJ1}
+    \strng{fullhash}{AIESJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{title}{Changing Course: Ten Years of Tracking Online Education in
+  the United States}
+    \field{journaltitle}{Babson Survey Research Group}
+    \field{year}{2013}
+  \endentry
+
+  \entry{apache2023pdfbox}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=A}{%
+         family={{Apache Software Foundation}},
+         familyi={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{A1}
+    \strng{fullhash}{A1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{howpublished}{\url{https://pdfbox.apache.org}}
+    \field{note}{Accessed: 2024}
+    \field{title}{Apache PDFBox -- A Java PDF Library}
+    \field{year}{2023}
+  \endentry
+
+  \entry{apache2023poi}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=A}{%
+         family={{Apache Software Foundation}},
+         familyi={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{A1}
+    \strng{fullhash}{A1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{howpublished}{\url{https://poi.apache.org}}
+    \field{note}{Accessed: 2024}
+    \field{title}{Apache POI -- the Java API for Microsoft Documents}
+    \field{year}{2023}
+  \endentry
+
+  \entry{openedx2023}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=A}{%
+         family={{Axim Collaborative}},
+         familyi={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{A2}
+    \strng{fullhash}{A2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{howpublished}{\url{https://openedx.org}}
+    \field{note}{Accessed: 2024}
+    \field{title}{Open edX Platform}
+    \field{year}{2023}
+  \endentry
+
+  \entry{bauer2015java}{book}{}
+    \name{author}{3}{}{%
+      {{hash=BC}{%
+         family={Bauer},
+         familyi={B\bibinitperiod},
+         given={Christian},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=KG}{%
+         family={King},
+         familyi={K\bibinitperiod},
+         given={Gavin},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=GG}{%
+         family={Gregory},
+         familyi={G\bibinitperiod},
+         given={Gary},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Manning Publications}%
+    }
+    \strng{namehash}{BCKGGG1}
+    \strng{fullhash}{BCKGGG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{edition}{2nd}
+    \field{title}{Java Persistence with Hibernate}
+    \list{location}{1}{%
+      {Shelter Island, NY}%
+    }
+    \field{year}{2015}
+  \endentry
+
+  \entry{chung2000nonfunctional}{book}{}
+    \name{author}{4}{}{%
+      {{hash=CL}{%
+         family={Chung},
+         familyi={C\bibinitperiod},
+         given={Lawrence},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=NBA}{%
+         family={Nixon},
+         familyi={N\bibinitperiod},
+         given={Brian\bibnamedelima A.},
+         giveni={B\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=YE}{%
+         family={Yu},
+         familyi={Y\bibinitperiod},
+         given={Eric},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=MJ}{%
+         family={Mylopoulos},
+         familyi={M\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{CL+1}
+    \strng{fullhash}{CLNBAYEMJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{Non-Functional Requirements in Software Engineering}
+    \list{location}{1}{%
+      {Boston, MA}%
+    }
+    \field{year}{2000}
+  \endentry
+
+  \entry{cole2007moodle}{book}{}
+    \name{author}{2}{}{%
+      {{hash=CJ}{%
+         family={Cole},
+         familyi={C\bibinitperiod},
+         given={Jason},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=FH}{%
+         family={Foster},
+         familyi={F\bibinitperiod},
+         given={Helen},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {O'Reilly Media}%
+    }
+    \strng{namehash}{CJFH1}
+    \strng{fullhash}{CJFH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{edition}{2nd}
+    \field{title}{Using Moodle: Teaching with the Popular Open Source Course
+  Management System}
+    \list{location}{1}{%
+      {Sebastopol, CA}%
+    }
+    \field{year}{2007}
+  \endentry
+
+  \entry{eckel2006java}{book}{}
+    \name{author}{1}{}{%
+      {{hash=EB}{%
+         family={Eckel},
+         familyi={E\bibinitperiod},
+         given={Bruce},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Prentice Hall}%
+    }
+    \strng{namehash}{EB1}
+    \strng{fullhash}{EB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{edition}{4th}
+    \field{title}{Thinking in Java}
+    \list{location}{1}{%
+      {Upper Saddle River, NJ}%
+    }
+    \field{year}{2006}
+  \endentry
+
+  \entry{fernandez2023thymeleaf}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=FD}{%
+         family={Fern{\'a}ndez},
+         familyi={F\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FD1}
+    \strng{fullhash}{FD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{howpublished}{\url{https://www.thymeleaf.org}}
+    \field{note}{Accessed: 2024}
+    \field{title}{Thymeleaf -- Natural Templating for Java}
+    \field{year}{2023}
+  \endentry
+
+  \entry{google2023classroom}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=G}{%
+         family={{Google LLC}},
+         familyi={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{G1}
+    \strng{fullhash}{G1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{howpublished}{\url{https://edu.google.com/products/classroom}}
+    \field{note}{Accessed: 2024}
+    \field{title}{Google Classroom}
+    \field{year}{2023}
+  \endentry
+
+  \entry{groen2020gdpr}{article}{}
+    \name{author}{2}{}{%
+      {{hash=GJ}{%
+         family={Groen},
+         familyi={G\bibinitperiod},
+         given={Jan},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=vdBM}{%
+         prefix={van\bibnamedelima der},
+         prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod},
+         family={Berg},
+         familyi={B\bibinitperiod},
+         given={Maaike},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \strng{namehash}{GJBMvd1}
+    \strng{fullhash}{GJBMvd1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{pages}{105389}
+    \field{title}{GDPR compliance for educational platforms: Challenges and
+  solutions}
+    \field{volume}{36}
+    \field{journaltitle}{Computer Law \& Security Review}
+    \field{year}{2020}
+  \endentry
+
+  \entry{hodges2020difference}{article}{}
+    \name{author}{5}{}{%
+      {{hash=HC}{%
+         family={Hodges},
+         familyi={H\bibinitperiod},
+         given={Charles},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=MS}{%
+         family={Moore},
+         familyi={M\bibinitperiod},
+         given={Stephanie},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=LB}{%
+         family={Lockee},
+         familyi={L\bibinitperiod},
+         given={Barb},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=TT}{%
+         family={Trust},
+         familyi={T\bibinitperiod},
+         given={Torrey},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=BM}{%
+         family={Bond},
+         familyi={B\bibinitperiod},
+         given={Mark},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HC+1}
+    \strng{fullhash}{HCMSLBTTBM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{title}{The Difference Between Emergency Remote Teaching and Online
+  Learning}
+    \field{volume}{27}
+    \field{journaltitle}{EDUCAUSE Review}
+    \field{year}{2020}
+  \endentry
+
+  \entry{instructure2023canvas}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=I}{%
+         family={{Instructure Inc.}},
+         familyi={I\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{I1}
+    \strng{fullhash}{I1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{I}
+    \field{sortinithash}{I}
+    \field{howpublished}{\url{https://www.instructure.com/canvas}}
+    \field{note}{Accessed: 2024}
+    \field{title}{Canvas LMS by Instructure}
+    \field{year}{2023}
+  \endentry
+
+  \entry{johnson2004j2ee}{book}{}
+    \name{author}{1}{}{%
+      {{hash=JR}{%
+         family={Johnson},
+         familyi={J\bibinitperiod},
+         given={Rod},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Wrox Press}%
+    }
+    \strng{namehash}{JR1}
+    \strng{fullhash}{JR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \field{title}{Expert One-on-One J2EE Design and Development}
+    \list{location}{1}{%
+      {Indianapolis, IN}%
+    }
+    \field{year}{2004}
+  \endentry
+
+  \entry{moodle2024stats}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=M}{%
+         family={{Moodle HQ}},
+         familyi={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{M1}
+    \strng{fullhash}{M1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{howpublished}{\url{https://stats.moodle.org}}
+    \field{note}{Accessed: 2024}
+    \field{title}{Moodle Statistics}
+    \field{year}{2024}
+  \endentry
+
+  \entry{provos1999bcrypt}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=PN}{%
+         family={Provos},
+         familyi={P\bibinitperiod},
+         given={Niels},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=MD}{%
+         family={Mazi{\`e}res},
+         familyi={M\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {USENIX}%
+    }
+    \strng{namehash}{PNMD1}
+    \strng{fullhash}{PNMD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{booktitle}{Proceedings of the USENIX Annual Technical Conference}
+    \field{title}{A Future-Adaptable Password Scheme}
+    \field{year}{1999}
+  \endentry
+
+  \entry{rosenberg2001elearning}{book}{}
+    \name{author}{1}{}{%
+      {{hash=RMJ}{%
+         family={Rosenberg},
+         familyi={R\bibinitperiod},
+         given={Marc\bibnamedelima J.},
+         giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {McGraw-Hill}%
+    }
+    \strng{namehash}{RMJ1}
+    \strng{fullhash}{RMJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{title}{E-Learning: Strategies for Delivering Knowledge in the
+  Digital Age}
+    \list{location}{1}{%
+      {New York}%
+    }
+    \field{year}{2001}
+  \endentry
+
+  \entry{sommerville2016software}{book}{}
+    \name{author}{1}{}{%
+      {{hash=SI}{%
+         family={Sommerville},
+         familyi={S\bibinitperiod},
+         given={Ian},
+         giveni={I\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Pearson}%
+    }
+    \strng{namehash}{SI1}
+    \strng{fullhash}{SI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{edition}{10th}
+    \field{title}{Software Engineering}
+    \list{location}{1}{%
+      {Harlow, UK}%
+    }
+    \field{year}{2016}
+  \endentry
+
+  \entry{winch2023springsecurity}{book}{}
+    \name{author}{1}{}{%
+      {{hash=SL}{%
+         family={Spilc\u{a}},
+         familyi={S\bibinitperiod},
+         given={Laurentiu},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Manning Publications}%
+    }
+    \strng{namehash}{SL1}
+    \strng{fullhash}{SL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{edition}{2nd}
+    \field{title}{Spring Security in Action}
+    \list{location}{1}{%
+      {Shelter Island, NY}%
+    }
+    \field{year}{2023}
+  \endentry
+
+  \entry{walls2019spring}{book}{}
+    \name{author}{1}{}{%
+      {{hash=WC}{%
+         family={Walls},
+         familyi={W\bibinitperiod},
+         given={Craig},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Manning Publications}%
+    }
+    \strng{namehash}{WC1}
+    \strng{fullhash}{WC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{edition}{5th}
+    \field{title}{Spring in Action}
+    \list{location}{1}{%
+      {Shelter Island, NY}%
+    }
+    \field{year}{2019}
+  \endentry
+
+  \entry{watson2007lms}{article}{}
+    \name{author}{2}{}{%
+      {{hash=WWR}{%
+         family={Watson},
+         familyi={W\bibinitperiod},
+         given={William\bibnamedelima R.},
+         giveni={W\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=WSL}{%
+         family={Watson},
+         familyi={W\bibinitperiod},
+         given={Sunnie\bibnamedelima Lee},
+         giveni={S\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WWRWSL1}
+    \strng{fullhash}{WWRWSL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{number}{4}
+    \field{pages}{33\bibrangedash 40}
+    \field{title}{Who or What Is the Learning Management System?}
+    \field{volume}{10}
+    \field{journaltitle}{Journal of Educational Technology \& Society}
+    \field{year}{2007}
+  \endentry
+\enddatalist
+\endinput

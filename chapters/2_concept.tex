@@ -1,0 +1,145 @@
+\chapter{Koncepció}
+
+\section{Problémakör és motiváció}
+
+Az e-learning, azaz elektronikus tanulás fogalma az 1990-es évek végén jelent meg, és azóta a digitális oktatás egyik meghatározó területévé vált. Az e-learning tágabb értelemben minden olyan oktatási folyamatot magában foglal, amelyet digitális eszközök és hálózati technológiák támogatnak~\cite{rosenberg2001elearning}. A számítógépes hálózatok, különösen az internet elterjedésével az e-learning nemcsak az oktatás elérhetőségét növelte, hanem alapvetően megváltoztatta a tudástranszfer módját és sebességét is.
+
+Az utóbbi évtizedben a felsőoktatásban és a vállalati képzések területén egyaránt ugrásszerűen nőtt a webalapú tanulási platformok iránti igény. Allen és Seaman vizsgálatai szerint az online oktatásban részt vevő hallgatók száma évről évre dinamikusan emelkedik az Egyesült Államokban~\cite{allen2013changing}. Ez a tendencia globálisan is megfigyelhető: a COVID-19 pandémia tovább erősítette ezt a folyamatot, mivel a felsőoktatási intézmények kénytelenek voltak hirtelen és teljes körűen digitalizálni oktatási folyamataikat~\cite{hodges2020difference}. A járvány rávilágított arra, hogy a rugalmas, helyhez és időhöz nem kötött oktatási platformok nem csupán kiegészítői, hanem esetenként egyenrangú alternatívái lehetnek a hagyományos kontaktoktatásnak.
+
+A Learning Management System (LMS), azaz tanulásirányítási rendszer egy olyan szoftveres infrastruktúra, amely lehetővé teszi oktatási tartalmak létrehozását, kezelését, terjesztését és a tanulói előrehaladás nyomon követését~\cite{watson2007lms}. A piacon elérhető LMS-megoldások jellemzően két nagy csoportba sorolhatók: a kereskedelmi, licenszköteles rendszerek (pl. Blackboard, Canvas) és a nyílt forráskódú platformok (pl. Moodle, Open edX). Mindkét kategória képviselői általában komplex, sok esetben nehezen testreszabható architektúrával rendelkeznek, amelyek kis intézmények vagy egyedi igények esetén aránytalanul nagy erőforrásigényt támasztanak az üzemeltetőkkel szemben.
+
+A ME Learning alkalmazás fejlesztésének kiindulópontját éppen ez a hiányosság adta. A cél egy könnyűsúlyú, könnyen telepíthető és karbantartható alternatíva biztosítása, amely a következő alapvető funkciókat nyújtja: kurzuskezelés, prezentációs anyagok tárolása és böngészőalapú megjelenítése, kvíz-alapú tudásellenőrzés, valamint szerepkör-alapú hozzáférés-vezérlés. Az alkalmazás tervezésekor kiemelt szempont volt, hogy az ne igényeljen dedikált alkalmazásszerver-infrastruktúrát, és a telepítése minimális rendszergazdai előismerettel elvégezhető legyen.
+
+\section{Hasonló rendszerek áttekintése}
+
+A piacon jelenleg számos LMS-megoldás érhető el, amelyek különböző felhasználói igényeket és intézményi méreteket céloznak meg. Az alábbiakban a legelterjedtebb rendszereket mutatom be, kiemelve azokat a tulajdonságokat, amelyek a ME Learning fejlesztési irányvonalát meghatározták.
+
+\subsection{Moodle}
+
+A Moodle (Modular Object-Oriented Dynamic Learning Environment) a világ legelterjedtebb nyílt forráskódú LMS-platformja, amelyet Martin Dougiamas fejlesztett ki 2002-ben, és amelyet mára több mint 300 millió felhasználó vesz igénybe világszerte~\cite{moodle2024stats}. A rendszer PHP-ban íródott, és az objektumorientált tervezési elveket követi. Moduláris architektúrájának köszönhetően szinte bármilyen oktatási igényre kiterjeszthető: fórumok, feladatkezelés, tesztelés, haladáskövetés, videókonferencia-integráció mind elérhetők bővítményként.
+
+Az MVC (Model-View-Controller) tervezési mintát alkalmazó rendszer képes SCORM- és IMS-szabványú tartalmak kezelésére is, ami széleskörű interoperabilitást biztosít~\cite{cole2007moodle}. Ugyanakkor a Moodle telepítése, konfigurálása és karbantartása adminisztrátori szaktudást igényel: szükséges hozzá webszerver (pl. Apache vagy Nginx), PHP-értelmező, valamint relációs adatbázis-kezelő rendszer (MySQL, PostgreSQL vagy MSSQL). Mindezek miatt a ME Learning célközönsége számára a Moodle túlméretezett és túl erőforrásigényes megoldás lenne.
+
+\subsection{Google Classroom}
+
+A Google Classroom 2014-ben jelent meg a Google Workspace for Education csomag részeként, és mára az egyik legszélesebb körben használt oktatási platform lett, különösen az alap- és középfokú oktatásban~\cite{google2023classroom}. Legfőbb előnye az egyszerűsége és a Google-ökoszisztémával való szoros integráció: a feladatok, dokumentumok és értékelések kezelése a Google Drive, Docs és Forms eszközein keresztül történik.
+
+Hátránya azonban, hogy az intézményi adatok Google szervereire kerülnek, ami adatvédelmi – különösen GDPR-szempontból – problémákat vethet fel az európai intézményeknél~\cite{groen2020gdpr}. A testreszabhatósága korlátozott: nincs lehetőség saját adatbázis-séma, egyedi jogosultsági logika vagy külső rendszerekkel való mélyebb integráció kialakítására. Önállóan üzemeltetett, offline vagy intranetes környezetben nem működőképes.
+
+\subsection{Canvas LMS}
+
+A Canvas LMS-t az Instructure fejlesztette ki, és 2011-es megjelenése óta az egyik leginnovatívabb kereskedelmi LMS-nek számít~\cite{instructure2023canvas}. Moderne REST API-alapú architektúrája, reszponzív felülete és kiterjedt integrációs lehetőségei (LTI-kompatibilitás, OAuth2 alapú SSO) miatt különösen népszerű az angolszász felsőoktatásban.
+
+A Canvas nyílt forráskódú verziója (Canvas Open Source) elérhető GitHub-on, ugyanakkor a saját infrastruktúrán való telepítése és üzemeltetése jelentős erőforrást és mélyebb DevOps-ismereteket igényel (Docker, Ruby on Rails, PostgreSQL). A licenszköteles, felhőalapú verzió árképzése nagy intézmények számára tervezte, kisebb szervezetek számára nem gazdaságos.
+
+\subsection{Open edX}
+
+Az Open edX a Harvard Egyetem és az MIT által alapított edX platform nyílt forráskódú változata, amelyet a Axim Collaborative tart karban~\cite{openedx2023}. A platform különlegessége, hogy MOOC-ok (Massive Open Online Courses) futtatására is alkalmas: skálázható, mikroszolgáltatás-alapú architektúrával rendelkezik. Python (Django) backenddel és React frontenddel készült. Hátránya, hogy telepítése és üzemeltetése rendkívül komplex, és kisebb, néhány száz felhasználóra tervezett rendszer esetén indokolatlanul nagy infrastruktúrát igényel.
+
+\subsection{Összehasonlítás}
+
+A fenti rendszerek áttekintése alapján megállapítható, hogy mindegyikük valamilyen kompromisszumot kényszerít az üzemeltetőre: vagy a komplexitás és erőforrásigény, vagy az adatfeletti kontroll hiánya, vagy a testreszabhatóság korlátai jelentenek akadályt. A ME Learning ezt a rést tölti be azáltal, hogy egyszerűen telepíthető, saját szerveren futtatható, Java alapú és nyílt forráskódú.
+
+\begin{table}[H]
+\centering
+\caption{E-learning rendszerek összehasonlítása}
+\label{tab:lms_comparison}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Rendszer} & \textbf{Nyílt forrás} & \textbf{Saját szerver} & \textbf{Egyszerű deploy} & \textbf{GDPR-barát} \\
+\hline
+Moodle       & Igen    & Igen & Nem     & Igen \\
+Google Classroom & Nem & Nem  & Igen    & Részben \\
+Canvas       & Részben & Igen & Nem     & Igen \\
+Open edX     & Igen    & Igen & Nem     & Igen \\
+ME Learning  & Igen    & Igen & Igen    & Igen \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Felhasznált technológiák}
+
+A fejlesztési technológiák kiválasztása során az alábbi szempontok vezéreltek: egységes, Java-alapú ökoszisztéma használata, minimális külső függőség, jól dokumentált és aktívan karbantartott keretrendszerek preferálása, valamint az alkalmazás egyszerű, önálló JAR-fájlként való terjeszthetősége.
+
+\subsection{Java és a Spring-ökoszisztéma általában}
+
+A Java programozási nyelv az egyik legelterjedtebb platformfüggetlen nyelv a vállalati szoftverfejlesztésben. Az erős típusosság, a JVM (Java Virtual Machine) által biztosított hordozhatóság és a kiterjedt keretrendszer-ökoszisztéma teszi vonzóvá vállalati webalkalmazások fejlesztéséhez~\cite{eckel2006java}. A Spring Framework a Java-ökoszisztéma egyik legkiterjedtebb, inverz vezérlésre (IoC – Inversion of Control) és függőség-injektálásra (DI – Dependency Injection) épülő keretrendszere, amelyet Rod Johnson fejlesztett ki 2002-ben az alkalmazásszerver-centrizmus alternatívájaként~\cite{johnson2004j2ee}.
+
+\subsection{Spring Boot}
+
+A Spring Boot a Spring Framework fölé épülő, konvención alapuló konfigurációs réteg, amelyet a Pivotal (ma VMware) tett elérhetővé 2014-ben~\cite{walls2019spring}. Legfontosabb újítása az auto-configuration mechanizmus: a classpath-on talált függőségek alapján automatikusan konfigurálja az alkalmazáskomponenseket, minimalizálva a manuális XML- vagy Java-konfigurációt.
+
+A Spring Boot beágyazott Tomcat, Jetty vagy Undertow szerverre épít, így az alkalmazás egyetlen futtatható JAR-fájlként csomagolható és indítható el a \texttt{java -jar} paranccsal, anélkül, hogy külön alkalmazásszerverre lenne szükség. Ez az \textit{opinionated defaults} (határozott alapbeállítások) elve alapján működik: a keretrendszer bevált konfigurációt ajánl fel, amelyet a fejlesztő szükség esetén felülírhat. A ME Learning esetén Spring Boot 3.x verzióját alkalmaztam, amely Java 17-es LTS (Long-Term Support) kiadáson fut, és natívan támogatja a Jakarta EE 10 API-t.
+
+\subsection{Spring Security}
+
+A Spring Security a Spring-ökoszisztéma hitelesítési (authentication) és engedélyezési (authorization) modulja~\cite{winch2023springsecurity}. A rendszerben a következő három szerepkör kerül definiálásra:
+
+\begin{itemize}
+    \item \texttt{ROLE\_ADMIN} – teljes körű rendszerfelügyelet, felhasználókezelés;
+    \item \texttt{ROLE\_INSTRUCTOR} – kurzusok és kvízek kezelése, hallgatók menedzselése;
+    \item \texttt{ROLE\_STUDENT} – kurzusok böngészése, beiratkozás, kvízkitöltés.
+\end{itemize}
+
+A Spring Security filter chain mechanizmusa alapján minden HTTP-kérés átmegy egy biztonsági szűrőláncon, amely ellenőrzi a hitelesítési tokent (session-alapú, cookie-ból olvasott JSESSIONID), majd a \texttt{@PreAuthorize} annotációk vagy \texttt{HttpSecurity} konfiguráció alapján eldönti, hogy a kérés jogosult-e az adott erőforráshoz hozzáférni.
+
+A jelszavak tárolása BCrypt algoritmust alkalmaz. A BCrypt egy adaptív hash-függvény, amelyet Niels Provos és David Mazières dolgozott ki 1999-ben~\cite{provos1999bcrypt}. Fő előnye, hogy a \textit{work factor} (munkatényező) paraméterezhető: ez lehetővé teszi, hogy a számítási teljesítmény növekedésével arányosan növeljük a jelszó-feltörési kísérletek erőforrásigényét, ezáltal megőrizve a jelszavak biztonságát.
+
+\subsection{Spring Data JPA és Hibernate}
+
+Az adatbázis-hozzáférés JPA (Java Persistence API) szabványon keresztül valósul meg. A JPA egy Java EE (ma Jakarta EE) specifikáció, amely az objektum-relációs leképezés (ORM – Object-Relational Mapping) egységes API-ját írja le~\cite{bauer2015java}. Az alkalmazásban a referenciaimplementációt a Hibernate ORM biztosítja, amely az egyik legelterjedtebb és leghosszabb múltra visszatekintő Java ORM-keretrendszer.
+
+A Hibernate az entitásosztályokat (\texttt{@Entity} annotációval jelölt Java POJO-k) automatikusan leképezi adatbázistáblákra, és a JPQL (Java Persistence Query Language) vagy natív SQL lekérdezéseken keresztül lehetővé teszi az adatok hatékony kezelését. A \texttt{spring.jpa.hibernate.ddl-auto=update} konfiguráció fejlesztési fázisban gondoskodik arról, hogy a séma automatikusan frissüljön az entitásváltozások alapján.
+
+A fejlesztési fázisban H2 beágyazott, memóriában futó adatbázist alkalmazunk, amely nem igényel külön telepítést, és az alkalmazás indításakor inicializálódik. Éles környezetben ez könnyedén felváltható PostgreSQL vagy MySQL adatbázisra az \texttt{application.properties} fájlban megadott JDBC-kapcsolati paraméterek módosításával – az alkalmazáskód változtatása nélkül.
+
+\subsection{Thymeleaf}
+
+A Thymeleaf egy modern, szerver oldali Java sablon-motor, amelyet Daniel Fernández fejlesztett ki~\cite{fernandez2023thymeleaf}. Fő jellemzője, hogy \textit{természetes sablonokat} (natural templates) alkalmaz: a HTML-fájlok Thymeleaf-attribútumokkal (pl. \texttt{th:text}, \texttt{th:each}, \texttt{th:if}) egészülnek ki, de statikusan, böngészőben is megnyithatók maradnak, ami megkönnyíti a frontend-fejlesztők munkáját.
+
+A Thymeleaf és a Spring Security integrációja lehetővé teszi, hogy a nézetekben a felhasználó aktuális szerepköre alapján dinamikusan jelenítsük meg vagy rejtsük el az egyes HTML-elemeket. Erre a \texttt{sec:authorize} attribútum-névtér szolgál: például \texttt{sec:authorize="hasRole('ADMIN')"} esetén az adott blokk csak adminisztrátoroknak látható. Ez deklaratív, HTML-szintű hozzáférés-vezérlést tesz lehetővé anélkül, hogy a nézetlogikában Java-kódot kellene elhelyezni.
+
+\subsection{Apache POI}
+
+Az Apache POI a Microsoft Office dokumentumformátumok Java-alapú olvasásához és írásához használt nyílt forráskódú könyvtár, amelyet az Apache Software Foundation tart karban~\cite{apache2023poi}. A projektben a PowerPoint-fájlok (\texttt{.ppt} és \texttt{.pptx}) feldolgozásához alkalmazzuk. A \texttt{.pptx} formátum valójában OOXML (Office Open XML) alapú ZIP-archívum, amelynek belső struktúráját az Apache POI \texttt{XMLSlideShow} osztálya teszi hozzáférhetővé.
+
+A feldolgozás menete a következő: az Apache POI segítségével a prezentáció minden egyes diáját egy \texttt{BufferedImage} objektumba rendereljük, amelyet aztán PNG-képként mentünk a szerverre. Ezeket a képeket a Thymeleaf-sablon egy lapozható galériaként jeleníti meg a böngészőben, így a felhasználónak nincs szüksége Microsoft Office-szoftverre a diák megtekintéséhez.
+
+\subsection{Apache PDFBox}
+
+Az Apache PDFBox szintén az Apache Software Foundation projektje, amellyel PDF-dokumentumokat lehet Java-ban programozottan létrehozni, módosítani és feldolgozni~\cite{apache2023pdfbox}. A ME Learningben a feltöltött PDF-prezentációs anyagok diánkénti képrenderelésére alkalmazzuk. A PDFBox \texttt{PDFRenderer} osztálya a PDF egyes oldalait konfigurálható felbontású (DPI) képekként jeleníti meg, amelyek ugyanolyan módon tárolódnak és kerülnek megjelenítésre, mint a PowerPoint-diákból generált képek.
+
+Ez az egységes, képalapú megjelenítési megközelítés biztosítja, hogy a tartalom kinézete minden böngészőben azonos legyen, és ne függjön a kliens oldali szoftverkörnyezettől.
+
+\section{Követelmény-specifikáció}
+
+A szoftverkövetelmények összegyűjtése és dokumentálása a szoftverfejlesztési folyamat egyik alapvető lépése. A követelménytervezés célja, hogy egyértelműen rögzítse, mit kell a rendszernek teljesítenie (funkcionális követelmények), és milyen minőségi elvárásoknak kell megfelelnie (nemfunkcionális követelmények)~\cite{sommerville2016software}. Az alábbiakban a ME Learning rendszer követelményeit az IEEE 830-as szabvány szellemében mutatom be.
+
+\subsection{Funkcionális követelmények}
+
+A funkcionális követelmények a rendszer konkrét, megfigyelhető viselkedését írják le. Az alábbi lista a fejlesztés során azonosított és implementált funkcionális követelményeket tartalmazza:
+
+\begin{itemize}
+    \item \textbf{FR-01 – Felhasználói regisztráció és hitelesítés:} A rendszer legyen képes felhasználók regisztrációjára e-mail cím és jelszó megadásával, valamint biztonságos bejelentkezésre munkamenet-kezeléssel.
+    \item \textbf{FR-02 – Szerepkör-alapú hozzáférés-vezérlés:} A rendszer három szerepkört különböztessen meg (\texttt{ADMIN}, \texttt{INSTRUCTOR}, \texttt{STUDENT}), és az egyes funkciókhoz való hozzáférést ezek alapján korlátozza.
+    \item \textbf{FR-03 – Kurzuskezelés:} Az oktatók hozhassanak létre, módosíthassanak és törölhessenek kurzusokat, megadva a kurzus nevét, leírását és láthatóságát.
+    \item \textbf{FR-04 – Prezentációfeltöltés:} Kurzusokhoz PDF és PowerPoint (\texttt{.pptx}) prezentációs fájlok tölthetők fel; a rendszer ezeket böngészőben megtekinthető képekké konvertálja.
+    \item \textbf{FR-05 – Kvízkezelés:} Az oktatók kvízeket hozhatnak létre kérdésekkel és helyes válaszokkal; a rendszer automatikusan értékelje a beküldött kitöltéseket.
+    \item \textbf{FR-06 – Beiratkozás:} A hallgatók böngészhetik a nyilvános kurzusokat és beiratkozhatnak; az oktatók láthatják a beiratkozott hallgatók listáját.
+    \item \textbf{FR-07 – Eredményvisszajelzés:} A kvízkitöltés után a hallgató azonnali visszajelzést kapjon elért eredményéről (helyes/helytelen válaszok, összpontszám).
+    \item \textbf{FR-08 – Felhasználókezelés:} Az adminisztrátor megtekinthesse, módosíthassa és törölhesse a felhasználói fiókokat.
+    \item \textbf{FR-09 – E-mail értesítés:} A rendszer e-mail értesítést küldjön sikeres regisztráció esetén.
+\end{itemize}
+
+\subsection{Nemfunkcionális követelmények}
+
+A nemfunkcionális követelmények a rendszer minőségi jellemzőit írják le, amelyek nem közvetlenül az üzleti logikára, hanem a rendszer viselkedésének módjára vonatkoznak~\cite{chung2000nonfunctional}:
+
+\begin{itemize}
+    \item \textbf{NFR-01 – Reszponzivitás:} Az alkalmazás reszponzív, mobilbarát felülettel rendelkezzen, Bootstrap keretrendszer segítségével, hogy különböző képernyőméreteken optimálisan jelenjen meg.
+    \item \textbf{NFR-02 – Biztonság:} A jelszavak titkosítva tárolódjanak BCrypt hash-algoritmussal; az alkalmazás legyen védett CSRF (Cross-Site Request Forgery) támadások ellen.
+    \item \textbf{NFR-03 – Fájlméret-korlát:} A fájlfeltöltés maximális mérete 50 MB legyen feltöltésenként.
+    \item \textbf{NFR-04 – Platformkompatibilitás:} Az alkalmazás Spring Boot 3.x és Java 17 LTS környezeten fusson, és Windows, Linux és macOS operációs rendszereken egyaránt telepíthető legyen.
+    \item \textbf{NFR-05 – Karbantarthatóság:} A forráskód rétegelt architektúrát kövessen (Controller–Service–Repository), és a komponensek legyenek egységtesztekkel lefedhetők.
+    \item \textbf{NFR-06 – Telepíthetőség:} Az alkalmazás egyetlen futtatható JAR-fájlként legyen terjeszthető, amelynek elindításához csupán egy Java 17 JRE szükséges.
+\end{itemize}

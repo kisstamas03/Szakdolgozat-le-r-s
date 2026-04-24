@@ -1,0 +1,123 @@
+\select@language {magyar} \contentsline {chapter}{\numberline {1}Bevezetés}{1}{chapter.1}%
+\select@language {magyar} \contentsline {chapter}{\numberline {2}Koncepció}{2}{chapter.2}%
+\select@language {magyar} \contentsline {section}{\numberline {2.1}Problémakör és motiváció}{2}{section.2.1}%
+\select@language {magyar} \contentsline {section}{\numberline {2.2}Hasonló rendszerek áttekintése}{3}{section.2.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.1}Moodle}{3}{subsection.2.2.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.2}Google Classroom}{3}{subsection.2.2.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.3}Canvas LMS}{3}{subsection.2.2.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.4}Open edX}{4}{subsection.2.2.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.5}Összehasonlítás}{4}{subsection.2.2.5}%
+\select@language {magyar} \contentsline {section}{\numberline {2.3}Felhasznált technológiák}{4}{section.2.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.1}Java és a Spring-ökoszisztéma általában}{4}{subsection.2.3.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.2}Spring Boot}{4}{subsection.2.3.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.3}Spring Security}{5}{subsection.2.3.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.4}Spring Data JPA és Hibernate}{5}{subsection.2.3.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.5}Thymeleaf}{6}{subsection.2.3.5}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.6}Apache POI}{6}{subsection.2.3.6}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.7}Apache PDFBox}{6}{subsection.2.3.7}%
+\select@language {magyar} \contentsline {section}{\numberline {2.4}Követelmény-specifikáció}{6}{section.2.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.4.1}Funkcionális követelmények}{7}{subsection.2.4.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.4.2}Nemfunkcionális követelmények}{7}{subsection.2.4.2}%
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Tervezés}{9}{chapter.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.1}Rendszerarchitektúra}{9}{section.3.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.1.1}Háromrétegű architektúra}{9}{subsection.3.1.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.1.2}Kérés-feldolgozás folyamata}{9}{subsection.3.1.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.1.3}Telepítési modell}{10}{subsection.3.1.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.2}Adatmodell}{10}{section.3.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.2.1}User}{10}{subsection.3.2.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.2.2}Course}{11}{subsection.3.2.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.2.3}Lesson}{11}{subsection.3.2.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.2.4}Presentation}{11}{subsection.3.2.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.2.5}Quiz és Question}{11}{subsection.3.2.5}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.2.6}QuizResult}{12}{subsection.3.2.6}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.2.7}Role}{12}{subsection.3.2.7}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.2.8}Entitáskapcsolatok összefoglalása}{12}{subsection.3.2.8}%
+\select@language {magyar} \contentsline {section}{\numberline {3.3}Biztonsági tervezés}{12}{section.3.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.3.1}Szerepkör-alapú hozzáférés-vezérlés}{12}{subsection.3.3.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.3.2}URL-szintű hozzáférés-vezérlés}{13}{subsection.3.3.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.3.3}Jelszókezelés}{13}{subsection.3.3.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.3.4}Munkamenet-kezelés}{13}{subsection.3.3.4}%
+\select@language {magyar} \contentsline {section}{\numberline {3.4}Felhasználói felület tervezése}{14}{section.3.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.1}Általános UX-elvek}{14}{subsection.3.4.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.2}Oldalak és navigációs folyamatok}{14}{subsection.3.4.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.3}Sablon-hierarchia és töredékek}{14}{subsection.3.4.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.5}Kvízrendszer tervezése}{15}{section.3.5}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.5.1}Többszöri próbálkozás kezelése}{15}{subsection.3.5.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.5.2}Ponthatárok és osztályzatok}{15}{subsection.3.5.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.5.3}Eredménystatisztikák}{15}{subsection.3.5.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.6}Prezentáció-feldolgozás tervezése}{15}{section.3.6}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.6.1}Támogatott formátumok és konverziós stratégia}{15}{subsection.3.6.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.6.2}Megjelenítési megközelítés}{16}{subsection.3.6.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.6.3}Tárolási megfontolások}{16}{subsection.3.6.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.7}Réteg-struktúra a forráskódban}{16}{section.3.7}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.7.1}Függőségek iránya}{16}{subsection.3.7.1}%
+\select@language {magyar} \contentsline {section}{\numberline {3.8}Nézetek (Thymeleaf sablonok)}{17}{section.3.8}%
+\select@language {magyar} \contentsline {chapter}{\numberline {4}Megvalósítás}{18}{chapter.4}%
+\select@language {magyar} \contentsline {section}{\numberline {4.1}Az alkalmazás indítása és konfiguráció}{18}{section.4.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}A belépési pont}{18}{subsection.4.1.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Maven függőségek}{18}{subsection.4.1.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.3}Az \texttt {application.properties} konfiguráció}{19}{subsection.4.1.3}%
+\select@language {magyar} \contentsline {section}{\numberline {4.2}A forráskód szerkezete}{19}{section.4.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.3}Adatmodell megvalósítása}{20}{section.4.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.3.1}A User entitás}{20}{subsection.4.3.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.3.2}A Course entitás}{21}{subsection.4.3.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.3.3}A Lesson entitás}{21}{subsection.4.3.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.3.4}A Presentation entitás}{22}{subsection.4.3.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.3.5}A Quiz és Question entitás}{23}{subsection.4.3.5}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.3.6}A QuizResult entitás}{23}{subsection.4.3.6}%
+\select@language {magyar} \contentsline {section}{\numberline {4.4}Adatinicializálás}{24}{section.4.4}%
+\select@language {magyar} \contentsline {section}{\numberline {4.5}Biztonsági konfiguráció}{25}{section.4.5}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.5.1}A SecurityConfig osztály}{25}{subsection.4.5.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.5.2}A CustomUserDetailsService}{26}{subsection.4.5.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.6}Adatelérési réteg}{28}{section.4.6}%
+\select@language {magyar} \contentsline {section}{\numberline {4.7}Szolgáltatási réteg}{29}{section.4.7}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.7.1}UserService}{29}{subsection.4.7.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.7.2}CourseService}{29}{subsection.4.7.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.7.3}LessonService}{30}{subsection.4.7.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.7.4}QuizService}{30}{subsection.4.7.4}%
+\select@language {magyar} \contentsline {section}{\numberline {4.8}Felhasználókezelés megvalósítása}{31}{section.4.8}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.8.1}Regisztráció és bejelentkezés}{31}{subsection.4.8.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.8.2}Irányítópultok}{32}{subsection.4.8.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.9}Kurzus- és leckekezelés megvalósítása}{32}{section.4.9}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.9.1}Kurzuslista keresővel}{32}{subsection.4.9.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.9.2}Kurzus létrehozása}{33}{subsection.4.9.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.9.3}Lecke létrehozása}{34}{subsection.4.9.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.9.4}Kurzusnézet leckékkel}{35}{subsection.4.9.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.9.5}Prezentáció-feltöltés leckéhez rendeléssel és duplikáció-szűréssel}{35}{subsection.4.9.5}%
+\select@language {magyar} \contentsline {section}{\numberline {4.10}Prezentáció-feldolgozás megvalósítása}{37}{section.4.10}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.10.1}A PresentationService}{37}{subsection.4.10.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.10.2}PowerPoint–PDF konverzió}{37}{subsection.4.10.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.10.3}Prezentáció streamelése}{39}{subsection.4.10.3}%
+\select@language {magyar} \contentsline {section}{\numberline {4.11}Kvízrendszer megvalósítása}{40}{section.4.11}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.11.1}Kvíz kitöltési és kiértékelési logika}{40}{subsection.4.11.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.11.2}Ponthatár-módosítás visszamenőleges hatása}{40}{subsection.4.11.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.12}E-mail értesítési rendszer}{41}{section.4.12}%
+\select@language {magyar} \contentsline {section}{\numberline {4.13}Nézetek és sablon-rendszer}{41}{section.4.13}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.13.1}Sablon-struktúra}{41}{subsection.4.13.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.13.2}Mobiloptimalizálás és reszponzív nézetek}{41}{subsection.4.13.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.13.3}Thymeleaf–Spring Security integráció}{42}{subsection.4.13.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.13.4}Statikus erőforrások}{42}{subsection.4.13.4}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Tesztelés}{43}{chapter.5}%
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Tesztelési stratégia}{43}{section.5.1}%
+\select@language {magyar} \contentsline {section}{\numberline {5.2}Automatizált tesztek}{43}{section.5.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.2.1}Alkalmazáskontextus-teszt}{43}{subsection.5.2.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.2.2}Regisztrációs és bejelentkezési integrációs teszt}{44}{subsection.5.2.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.2.3}Jogosultságvezérlési integrációs teszt}{45}{subsection.5.2.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.2.4}Kvíz üzleti logika egységteszt}{46}{subsection.5.2.4}%
+\select@language {magyar} \contentsline {section}{\numberline {5.3}Manuális funkcionális tesztelés}{47}{section.5.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.3.1}Hitelesítési tesztek}{48}{subsection.5.3.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.3.2}Kurzus- és leckekezelési tesztek}{49}{subsection.5.3.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.3.3}Prezentáció-feltöltési tesztek}{50}{subsection.5.3.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.3.4}Kvíztesztelés}{51}{subsection.5.3.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.3.5}Irányítópult tesztek}{52}{subsection.5.3.5}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.3.6}Felhasználókezelési tesztek}{52}{subsection.5.3.6}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.3.7}E-mail értesítési teszt}{53}{subsection.5.3.7}%
+\select@language {magyar} \contentsline {section}{\numberline {5.4}Biztonsági tesztelés}{53}{section.5.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.4.1}URL-manipulációs kísérletek}{53}{subsection.5.4.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.4.2}CSRF-védelem ellenőrzése}{53}{subsection.5.4.2}%
+\select@language {magyar} \contentsline {section}{\numberline {5.5}Reszponzivitás és böngészőkompatibilitás tesztelése}{53}{section.5.5}%
+\select@language {magyar} \contentsline {section}{\numberline {5.6}Ismert korlátok és fejlesztési lehetőségek}{54}{section.5.6}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.6.1}Ismert korlátok}{54}{subsection.5.6.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.6.2}Fejlesztési lehetőségek}{55}{subsection.5.6.2}%
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás}{56}{chapter.6}%
+\select@language {magyar} \contentsline {chapter}{Források}{57}{chapter*.2}%

@@ -1,0 +1,434 @@
+\chapter{Tesztelés}
+
+% ============================================================
+%  5.1  Tesztelési stratégia
+% ============================================================
+\section{Tesztelési stratégia}
+
+Az alkalmazás tesztelése két egymást kiegészítő megközelítéssel valósult meg: automatizált Spring Boot integrációs teszteléssel és részletes manuális funkcionális teszteléssel. A tesztelés az alábbi területeket fedte le:
+
+\begin{itemize}
+    \item a Spring alkalmazáskontextus helyes betöltése (konfigurációs, bean-definíciós hibák kizárása),
+    \item szerepkör-alapú hozzáférés-vezérlés helyessége minden URL-útvonalon,
+    \item a kurzus-, lecke- és kvízkezelési műveletek teljes életciklusa,
+    \item a prezentáció-feltöltési, konverziós és duplikáció-szűrési folyamat,
+    \item a regisztrációs és bejelentkezési folyamat, beleértve a validációs szabályokat,
+    \item mobilos és asztali reszponzív megjelenítés.
+\end{itemize}
+
+Az integrációs tesztek a teljes Spring-kontextust töltik be, ezáltal a rétegek közötti interakciókat is ellenőrzik, nem csupán az egyes osztályokat izoláltan. A manuális tesztelés az automatizált tesztekkel nehezebben lefedhetős felhasználói felületi és üzleti folyamatokra fókuszál.
+
+% ============================================================
+%  5.2  Automatizált tesztek
+% ============================================================
+\section{Automatizált tesztek}
+
+\subsection{Alkalmazáskontextus-teszt}
+
+Az \texttt{ElearningApplicationTests} osztály az alkalmazás alapvető egészségét ellenőrzi: induláskor betölti-e a Spring IoC-konténer az összes bean-t hibák nélkül. Ez a teszt a legfontosabb regressziós háló: bármely konfigurációs hiba, körkörös függőség (\textit{circular dependency}) vagy hiányzó bean-definíció azonnal láthatóvá válik.
+
+\begin{java}[caption={Spring kontextus betöltési teszt},label=java:contexttest]
+@SpringBootTest
+class ElearningApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+}
+\end{java}
+
+A \texttt{@SpringBootTest} annotáció az alkalmazás teljes kontextusát indítja el, beleértve a biztonsági konfigurációt, az adatbázis-inicializálást és az összes service bean-t. Sikeres lefutása garantálja, hogy az alkalmazás éles körülmények között is elindítható.
+
+\subsection{Regisztrációs és bejelentkezési integrációs teszt}
+
+Az \texttt{AuthControllerTest} osztály a regisztrációs és bejelentkezési folyamat HTTP-szintű viselkedését ellenőrzi a Spring MVC \texttt{MockMvc} tesztelési keretrendszerével.
+
+\begin{java}[caption={Bejelentkezési és regisztrációs MockMvc tesztek},label=java:authtests]
+@SpringBootTest
+@AutoConfigureMockMvc
+class AuthControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    void loginPage_shouldReturn200() throws Exception {
+        mockMvc.perform(get("/login"))
+               .andExpect(status().isOk())
+               .andExpect(view().name("login"));
+    }
+
+    @Test
+    void registerPage_shouldReturn200() throws Exception {
+        mockMvc.perform(get("/register"))
+               .andExpect(status().isOk())
+               .andExpect(view().name("register"));
+    }
+
+    @Test
+    void register_withValidData_shouldRedirect() throws Exception {
+        mockMvc.perform(post("/register")
+                   .param("username", "testuser")
+                   .param("email", "test@example.com")
+                   .param("password", "password123")
+                   .param("firstName", "Test")
+                   .param("lastName", "User")
+                   .with(csrf()))
+               .andExpect(status().is3xxRedirection())
+               .andExpect(redirectedUrl("/login"));
+    }
+
+    @Test
+    void register_withDuplicateUsername_shouldShowError()
+            throws Exception {
+        mockMvc.perform(post("/register")
+                   .param("username", "duplicate")
+                   .param("email", "dup1@example.com")
+                   .param("password", "pass1234")
+                   .with(csrf()));
+
+        mockMvc.perform(post("/register")
+                   .param("username", "duplicate")
+                   .param("email", "dup2@example.com")
+                   .param("password", "pass1234")
+                   .with(csrf()))
+               .andExpect(status().isOk())
+               .andExpect(model().attributeExists("error"));
+    }
+}
+\end{java}
+
+A \texttt{with(csrf())} segédfüggvény gondoskodik arról, hogy az állapotváltoztató POST kérések tartalmazzák a szükséges CSRF-tokent.
+
+\subsection{Jogosultságvezérlési integrációs teszt}
+
+A \texttt{SecurityIntegrationTest} osztály ellenőrzi, hogy a különböző szerepkörű felhasználók csak az engedélyezett URL-ekhez férnek hozzá. A tesztek a \texttt{@WithMockUser} annotáció segítségével szintetikus hitelesített felhasználóként futnak, valódi bejelentkezési folyamat nélkül.
+
+\begin{java}[caption={Szerepkör-alapú hozzáférés-vezérlés integrációs tesztje},label=java:securitytest]
+@SpringBootTest
+@AutoConfigureMockMvc
+class SecurityIntegrationTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    void protectedRoute_withoutAuth_shouldRedirectToLogin()
+            throws Exception {
+        mockMvc.perform(get("/courses"))
+               .andExpect(status().is3xxRedirection())
+               .andExpect(redirectedUrlPattern("**/login"));
+    }
+
+    @Test
+    @WithMockUser(roles = "STUDENT")
+    void courseCreate_asStudent_shouldBeForbidden() throws Exception {
+        mockMvc.perform(get("/courses/create"))
+               .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(roles = "INSTRUCTOR")
+    void courseCreate_asInstructor_shouldBeAllowed() throws Exception {
+        mockMvc.perform(get("/courses/create"))
+               .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(roles = "STUDENT")
+    void adminPanel_asStudent_shouldBeForbidden() throws Exception {
+        mockMvc.perform(get("/admin/users"))
+               .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void adminPanel_asAdmin_shouldBeAllowed() throws Exception {
+        mockMvc.perform(get("/admin/users"))
+               .andExpect(status().isOk());
+    }
+}
+\end{java}
+
+\subsection{Kvíz üzleti logika egységteszt}
+
+A \texttt{QuizServiceTest} osztály a kvízkiértékelési logikát ellenőrzi izoláltan, Spring-kontextus betöltése nélkül. Ez gyors, az adatbázistól független visszajelzést ad a pontszámítás és az osztályzatkiosztás helyességéről.
+
+\begin{java}[caption={Kvíz pontszámítás és osztályzatkiosztás egységtesztje},label=java:quiztest]
+class QuizServiceTest {
+
+    @Test
+    void calculateGrade_above85_shouldReturn5() {
+        Quiz quiz = buildQuiz(85, 70, 55, 40);
+        assertEquals(5, quiz.calculateGrade(90));
+    }
+
+    @Test
+    void calculateGrade_below40_shouldReturn1() {
+        Quiz quiz = buildQuiz(85, 70, 55, 40);
+        assertEquals(1, quiz.calculateGrade(30));
+    }
+
+    @Test
+    void calculateGrade_exactly85_shouldReturn5() {
+        Quiz quiz = buildQuiz(85, 70, 55, 40);
+        assertEquals(5, quiz.calculateGrade(85));
+    }
+
+    @Test
+    void calculateGrade_between70and84_shouldReturn4() {
+        Quiz quiz = buildQuiz(85, 70, 55, 40);
+        assertEquals(4, quiz.calculateGrade(75));
+    }
+
+    private Quiz buildQuiz(int excellent, int good,
+                            int average, int pass) {
+        Quiz q = new Quiz();
+        q.setExcellentThreshold(excellent);
+        q.setGoodThreshold(good);
+        q.setAverageThreshold(average);
+        q.setPassingThreshold(pass);
+        return q;
+    }
+}
+\end{java}
+
+A tesztek a \texttt{Quiz.calculateGrade()} metódust közvetlenül hívják — Spring-kontextus nélkül is futtathatók, mert az osztályzatszámítási logika az entitásosztályban van, nem service-ben. Az egységtesztek szimmetrikusan lefedik a határértékeket (pontosan 85\%), a közbülső értékeket és az alsó tartomány elégtelen esetét.
+
+% ============================================================
+%  5.3  Manuális funkcionális tesztelés
+% ============================================================
+\section{Manuális funkcionális tesztelés}
+
+A manuális tesztelés a beágyazott H2 adatbázist használó, helyi fejlesztői szerveren futó alkalmazáson történt. Az alkalmazás a \texttt{DataInitializer} által létrehozott tesztfelhasználókkal rendelkezett: \texttt{admin}, \texttt{instructor}, \texttt{kovacs.janos}, \texttt{nagy.anna} és \texttt{student}.
+
+\subsection{Hitelesítési tesztek}
+
+\begin{table}[H]
+\centering
+\caption{Hitelesítési tesztesetek és eredményeik}
+\label{tab:auth_tests}
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|c|}
+\hline
+\textbf{Teszteset leírása} & \textbf{Bemenet / körülmény} & \textbf{Várt eredmény} & \textbf{Eredmény} \\
+\hline
+Bejelentkezés helyes adatokkal (hallgató) & \texttt{student} / helyes jelszó & Átirányítás a hallgató irányítópultra & \checkmark \\
+Bejelentkezés helyes adatokkal (oktató) & \texttt{instructor} / helyes jelszó & Átirányítás az oktató irányítópultra & \checkmark \\
+Bejelentkezés helyes adatokkal (admin) & \texttt{admin} / helyes jelszó & Átirányítás az admin irányítópultra & \checkmark \\
+Bejelentkezés helytelen jelszóval & Érvényes username, rossz jelszó & Hibaüzenet a bejelentkezési oldalon & \checkmark \\
+Bejelentkezés nem létező felhasználóval & Nem létező username & Hibaüzenet a bejelentkezési oldalon & \checkmark \\
+Regisztráció érvényes adatokkal & Egyedi username és e-mail & Átirányítás a bejelentkezési oldalra & \checkmark \\
+Regisztráció foglalt felhasználónévvel & Már létező username & Hibaüzenet, az űrlap kitöltve marad & \checkmark \\
+Regisztráció foglalt e-mail címmel & Már létező e-mail & Hibaüzenet, az űrlap kitöltve marad & \checkmark \\
+Regisztráció hiányos adatokkal & Üres kötelező mező & Validációs hibaüzenet & \checkmark \\
+Kijelentkezés & Bejelentkezett felhasználó & Átirányítás a főoldalra & \checkmark \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Kurzus- és leckekezelési tesztek}
+
+\begin{table}[H]
+\centering
+\caption{Kurzus- és leckekezelési tesztesetek}
+\label{tab:course_tests}
+\begin{tabular}{|p{5cm}|p{2.5cm}|p{3cm}|c|}
+\hline
+\textbf{Teszteset leírása} & \textbf{Végrehajtó} & \textbf{Várt eredmény} & \textbf{Eredmény} \\
+\hline
+Nyilvános kurzus létrehozása & Oktató & Sikeres mentés, megjelenik a listában & \checkmark \\
+Privát kurzus létrehozása & Oktató & Csak az oktatónak látható & \checkmark \\
+Saját kurzus törlése & Oktató & Sikeres törlés & \checkmark \\
+Más oktató kurzusának törlési kísérlete & Oktató & Hozzáférés megtagadva & \checkmark \\
+Lecke hozzáadása kurzushoz & Oktató & Lecke megjelenik a kezelőfelületen & \checkmark \\
+Leckék sorrendben jelennek meg & Hallgató & Orderindex szerint növekvő sorrend & \checkmark \\
+Hallgató hozzáadása kurzushoz & Oktató & Hallgató megjelenik a résztvevők között & \checkmark \\
+Beiratkozás nyilvános kurzusra & Hallgató & Sikeres beiratkozás & \checkmark \\
+Beiratkozás privát kurzusra (önálló) & Hallgató & Hozzáférés megtagadva & \checkmark \\
+Kurzus törlése admin által & Admin & Sikeres törlés & \checkmark \\
+Kurzuslétrehozás kísérlete hallgatóként & Hallgató & 403 válasz & \checkmark \\
+Kurzuskeresés kulcsszóval (cím) & Bármely & Csak illeszkedő kurzusok látszanak & \checkmark \\
+Kurzuskeresés kulcsszóval (leírás) & Bármely & Csak illeszkedő kurzusok látszanak & \checkmark \\
+Üres keresési mező & Bármely & Összes elérhető kurzus látszódik & \checkmark \\
+\hline
+\end{tabular}
+\end{table}
+
+Kiemelt megállapítás a leckekezelésről: a leckék az \texttt{orderIndex} mező alapján rendezetten jelennek meg a kurzusnézeten, és a hallgatók leckénként is böngészhetnek a hozzájuk csatolt prezentációk között. A lecke létrehozásakor az oktató megadja a sorrendi indexet, amelyet a \texttt{LessonRepository} automatikusan rendez a lekérdezés során.
+
+\subsection{Prezentáció-feltöltési tesztek}
+
+\begin{table}[H]
+\centering
+\caption{Prezentáció-feltöltési tesztesetek és eredményeik}
+\label{tab:presentation_tests}
+\begin{tabular}{|p{5cm}|p{2.5cm}|p{3cm}|c|}
+\hline
+\textbf{Teszteset leírása} & \textbf{Fájltípus} & \textbf{Várt eredmény} & \textbf{Eredmény} \\
+\hline
+PowerPoint feltöltése (.pptx) & \texttt{.pptx} & Sikeres konverzió, PDF tárolás & \checkmark \\
+PowerPoint feltöltése (.ppt) & \texttt{.ppt} & Sikeres konverzió, PDF tárolás & \checkmark \\
+PDF feltöltése & \texttt{.pdf} & Közvetlen tárolás, konverzió nélkül & \checkmark \\
+Feltöltés leckéhez rendeléssel & \texttt{.pdf} & Lecke-szintű megjelenítés & \checkmark \\
+Feltöltés kurzusszinten (lecke nélkül) & \texttt{.pdf} & Kurzusszintű megjelenítés & \checkmark \\
+Azonos nevű fájl újbóli feltöltése & Bármely & Kihagyás, tájékoztató üzenet & \checkmark \\
+Részleges duplikátum (egy kihagyva, egy feltöltve) & Vegyes & Vegyes visszajelzés & \checkmark \\
+Nyilvános kurzus prezentációja (bejelentkezett, nem beiratkozott) & — & PDF-nézegető betöltődik & \checkmark \\
+Privát kurzus prezentációja (nem beiratkozott) & — & Hozzáférés megtagadva & \checkmark \\
+Nem támogatott fájlformátum feltöltése & \texttt{.docx} & Hibaüzenet, feltöltés visszautasítva & \checkmark \\
+50 MB-nál nagyobb fájl feltöltése & Bármely & Hibaüzenet a méretkorlátról & \checkmark \\
+Prezentáció törlése & — & Eltűnik a listáról & \checkmark \\
+\hline
+\end{tabular}
+\end{table}
+
+A duplikáció-szűrési logika tesztelésekor azt vizsgáltuk, hogy az oktató három fájlt tölt fel egyszerre, amelyek közül kettő már létezik a kurzusban. Az alkalmazás az egy új fájlt feltöltötte, a két már meglévőt kihagyta, és részletes visszajelzést adott: \textit{„1 fájl sikeresen feltöltve. 2 fájl kihagyva, mert már létezik."}
+
+A nyilvános kurzus prezentáció-elérési tesztjénél egy be nem iratkozott, de bejelentkezett hallgató is sikeresen meg tudta tekinteni a nyilvános kurzus prezentációját. Ez az optimalizálás során bevezetett változtatás összhangban van azzal, hogy a nyilvános kurzus tartalmát bárki megtekintheti — beiratkozás a kvízek kitöltéséhez szükséges.
+
+\subsection{Kvíztesztelés}
+
+\begin{table}[H]
+\centering
+\caption{Kvíz életciklus tesztesetek és eredményeik}
+\label{tab:quiz_tests}
+\begin{tabular}{|p{5cm}|p{2.5cm}|p{3cm}|c|}
+\hline
+\textbf{Teszteset leírása} & \textbf{Végrehajtó} & \textbf{Várt eredmény} & \textbf{Eredmény} \\
+\hline
+Kvíz létrehozása kérdésekkel & Oktató & Kvíz megjelenik a kurzuson & \checkmark \\
+Kvíz kitöltése (minden helyes) & Hallgató & 100\%, jeles osztályzat & \checkmark \\
+Kvíz kitöltése (részben helyes) & Hallgató & Arányos pontszám és osztályzat & \checkmark \\
+Kvíz kitöltése (minden helytelen) & Hallgató & 0\%, elégtelen osztályzat & \checkmark \\
+Ismételt kitöltési kísérlet (ha tiltott) & Hallgató & Előző eredmény jelenik meg & \checkmark \\
+Ismételt kitöltési kísérlet (ha engedélyezett) & Hallgató & Kitöltési form újra megjelenik & \checkmark \\
+Eredmény megtekintése az oktatónak & Oktató & Összesített statisztikák helyesek & \checkmark \\
+Ponthatárok módosítása kitöltések után & Oktató & Korábbi osztályzatok automatikusan frissülnek & \checkmark \\
+Kvíz megtekintési kísérlet nem beiratkozott hallgatóval & Hallgató & Hozzáférés megtagadva & \checkmark \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Irányítópult tesztek}
+
+\begin{table}[H]
+\centering
+\caption{Irányítópult-tesztesetek és eredményeik}
+\label{tab:dashboard_tests}
+\begin{tabular}{|p{5.5cm}|p{2.5cm}|p{3cm}|c|}
+\hline
+\textbf{Teszteset leírása} & \textbf{Végrehajtó} & \textbf{Várt eredmény} & \textbf{Eredmény} \\
+\hline
+Admin irányítópult megnyitása & Admin & Felhasználók és kurzusok statisztikái látszanak & \checkmark \\
+Oktató irányítópult megnyitása & Oktató & Saját kurzusok listája és statisztikák & \checkmark \\
+Hallgató irányítópult megnyitása & Hallgató & Beiratkozott és elérhető kurzusok listája & \checkmark \\
+Hallgató irányítópultján az elérhető lista nem tartalmaz beiratkozott kurzust & Hallgató & Beiratkozott kurzus eltűnik az elérhetők közül & \checkmark \\
+Admin töröl felhasználót az irányítópultról & Admin & Felhasználó törlődik, visszajelzés megjelenik & \checkmark \\
+Admin töröl kurzust az irányítópultról & Admin & Kurzus törlődik, statisztikák frissülnek & \checkmark \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Felhasználókezelési tesztek}
+
+\begin{table}[H]
+\centering
+\caption{Adminisztrátori felhasználókezelési tesztesetek}
+\label{tab:admin_tests}
+\begin{tabular}{|p{5cm}|p{2.5cm}|p{3cm}|c|}
+\hline
+\textbf{Teszteset leírása} & \textbf{Végrehajtó} & \textbf{Várt eredmény} & \textbf{Eredmény} \\
+\hline
+Összes felhasználó listázása & Admin & Minden regisztrált felhasználó látható & \checkmark \\
+Felhasználó szerepkörének módosítása & Admin & Az új szerepkör azonnal érvényes & \checkmark \\
+Felhasználó törlése & Admin & Fiók és beiratkozások törlődnek & \checkmark \\
+Saját fiók törlési kísérlete adminként & Admin & Hibaüzenet, törlés megakadályozva & \checkmark \\
+Admin felület elérési kísérlete oktató által & Oktató & 403 válasz, hozzáférés megtagadva & \checkmark \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{E-mail értesítési teszt}
+
+A regisztrációs e-mail küldés tesztelésekor valódi Gmail SMTP-konfigurációval ellenőriztük, hogy az \texttt{EmailService} helyesen küld-e üdvözlő e-mailt az újonnan regisztrált felhasználó megadott e-mail-címére. Az e-mail megérkezett és tartalma helyes volt. Az érzékeny konfigurációs adatok az \texttt{application.properties} fájlban helyezkednek el.
+
+% ============================================================
+%  5.4  Biztonsági tesztelés
+% ============================================================
+\section{Biztonsági tesztelés}
+
+\subsection{URL-manipulációs kísérletek}
+
+A biztonsági tesztelés folyamán kísérletet tettem a jogosultságvezérlés manuális, URL-manipulációval történő megkerülésére:
+
+\begin{itemize}
+    \item \textbf{Hitelesítés nélküli hozzáférés:} A \texttt{/courses}, \texttt{/courses/1/manage} és \texttt{/dashboard} URL-ek bejelentkezés nélkül mindegyike a \texttt{/login} oldalra irányított át.
+    \item \textbf{Kereszt-szerepkörű hozzáférés:} Hallgató szerepkörű felhasználóval a \texttt{/courses/create} és \texttt{/courses/1/manage} oldalak mindegyike 403 Forbidden választ adott vissza.
+    \item \textbf{Leckelétrehozás közvetlen URL-lel:} Hallgató szerepkörű felhasználóval a \texttt{POST /lessons/create} végpontot hívtuk meg. A Spring Security az URL-szintű védelem hiánya ellenére a CSRF-tokenen keresztül és a kurzustulajdonos-ellenőrzéssel megakadályozta a jogosulatlan leckét létrehozást.
+    \item \textbf{Más oktató kurzusának szerkesztése:} A \texttt{kovacs.janos} felhasználóval az \texttt{nagy.anna} kurzusának kezelési URL-jét hívtuk meg. A service-szintű \texttt{isOwnerOrAdmin()} ellenőrzés megakadályozta a hozzáférést.
+\end{itemize}
+
+\subsection{CSRF-védelem ellenőrzése}
+
+Egy külső HTML-oldal segítségével CSRF-token nélküli POST kérést küldtünk a kurzustörlési és leckét-létrehozási végpontokra. Az alkalmazás minden ilyen kísérletet 403 Forbidden hibával utasított vissza.
+
+% ============================================================
+%  5.5  Reszponzivitás és böngészőkompatibilitás tesztelése
+% ============================================================
+\section{Reszponzivitás és böngészőkompatibilitás tesztelése}
+
+A fejlesztési folyamat részeként minden sablon reszponzív kialakítást kapott. A tesztelést különböző böngészőkben és képernyőméreteken lett elvégezve, beleértve a böngészők fejlesztői eszközeiben elérhető eszközszimulációs nézetet.
+
+\begin{table}[H]
+\centering
+\caption{Böngészőkompatibilitási és reszponzív tesztelés összefoglalója}
+\label{tab:browser_tests}
+\begin{tabular}{|l|l|c|}
+\hline
+\textbf{Böngésző és verzió} & \textbf{Felbontás / eszköz} & \textbf{Eredmény} \\
+\hline
+Google Chrome 124 & 1920×1080 (asztali) & \checkmark \\
+Google Chrome 124 & 390×844 (mobil szimuláció) & \checkmark \\
+Google Chrome 124 & 768×1024 (tablet szimuláció) & \checkmark \\
+Mozilla Firefox 125 & 1920×1080 (asztali) & \checkmark \\
+Mozilla Firefox 125 & 390×844 (mobil szimuláció) & \checkmark \\
+Microsoft Edge 124 & 1920×1080 (asztali) & \checkmark \\
+\hline
+\end{tabular}
+\end{table}
+
+Mobilos nézetben a következő elemek viselkedését ellenőriztük külön:
+
+\begin{itemize}
+    \item \textbf{Navigáció:} Az összecsukható hamburger-menü minden tesztelt böngészőben megfelelően nyílt és csukódott.
+    \item \textbf{Kurzuslista:} A kártyák mobilon teljes szélességűek lesznek, tablet nézetben két, asztali nézetben három oszlopban helyezkednek el.
+    \item \textbf{Kvízkitöltő:} A rádiógombok és a beküldő gomb tapintható területe mobilon megfelelő méretű volt.
+    \item \textbf{Keresőmező:} A kurzuslista keresőmezője mobilon is teljes szélességű.
+\end{itemize}
+
+% ============================================================
+%  5.6  Ismert korlátok és fejlesztési lehetőségek
+% ============================================================
+\section{Ismert korlátok és fejlesztési lehetőségek}
+
+\subsection{Ismert korlátok}
+
+\begin{itemize}
+    \item \textbf{Memória-adatbázis:} A fejlesztési konfigurációban H2 memória-adatbázis kerül alkalmazásra, ezért az alkalmazás leállításakor az adatok elvesznek. Éles üzemeltetéshez PostgreSQL vagy MySQL adatbázis szükséges, amelyhez csak az \texttt{application.properties} és a \texttt{pom.xml} módosítása szükséges.
+    \item \textbf{Fájladatok az adatbázisban:} A feltöltött prezentációs fájlok bináris tartalma (\texttt{byte[]}) az adatbázisban tárolódik. Ez nagyméretű fájlok esetén az adatbázis méretét jelentősen növeli és lassíthatja a lekérdezéseket.
+    \item \textbf{Nincs automatizált teszt a prezentáció-konverzióhoz:} Az Apache POI és PDFBox alapú konverziós logika kizárólag manuálisan tesztelésre kerül; automatizált egységteszt jelenleg nem biztosít regresszióvédelmet ezen a területen.
+    \item \textbf{Egyszeri szerepkör:} Egy felhasználó egyszerre csak egyetlen szerepkörrel rendelkezhet, így egy oktató nem iratkozhat be más oktatók kurzusaira hallgatóként.
+    \item \textbf{Leckesorrend módosítása:} A leckék sorrendi indexét egyelőre csak manuálisan, kézzel megadott értékkel lehet beállítani; drag-and-drop rendezési felület nem érhető el.
+    \item \textbf{Alapszintű statisztikák:} A kvíz eredménystatisztikák jelenleg átlagot, kísérletszámot és átmenési arányt tartalmaznak; kérdésenkénti elemzés nem érhető el.
+\end{itemize}
+
+\subsection{Fejlesztési lehetőségek}
+
+\begin{itemize}
+    \item \textbf{Külső fájltároló integráció:} A prezentációs fájlok áthelyezése fájlrendszer-alapú vagy objektumtároló megoldásba csökkentené az adatbázis méretét és javítaná a lekérési teljesítményt.
+    \item \textbf{Leckesorrend drag-and-drop szerkesztése:} JavaScript alapú fogd-és-vidd felület az \texttt{orderIndex} értékek vizuális módosításához.
+    \item \textbf{REST API réteg:} A Thymeleaf-alapú szerver oldali renderelés mellé egy REST API réteg lehetővé tenné mobilalkalmazásokkal való integrációt.
+    \item \textbf{Automatizált end-to-end tesztelés:} Selenium vagy Playwright alapú böngészővezérelt tesztek a felhasználói felület regressziós tesztelésére, beleértve a mobilos megjelenítés ellenőrzését is.
+    \item \textbf{Kérdésenkénti statisztikák:} A helyes arány kérdésenként megmutatná, mely kérdések bizonyulnak a hallgatók számára a legnehezebbeknek.
+    \item \textbf{Dedikált tesztelési profil:} Külön \texttt{application-test.properties} Spring-profil bevezetése az automatizált tesztek számára, elkülönítve a fejlesztési és tesztelési beállításokat.
+\end{itemize}
