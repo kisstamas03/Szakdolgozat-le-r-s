@@ -565,6 +565,20 @@ public Quiz saveQuiz(Quiz quiz) {
 
 Az \texttt{AuthController} kétszintű validációt alkalmaz regisztrációkor: Bean Validation ellenőrzi a mezők formátumát, az alkalmazás üzleti logikája pedig a felhasználónév és e-mail egyediségét.
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{images/Regisztracio.png}
+    \caption{Regisztrációs oldal szemléltetése.}
+    \label{fig:Regisztrációs_oldal}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{images/Bejelentkezes.png}
+    \caption{Bejelentkezési oldal szemléltetése.}
+    \label{fig:Regisztrációs_oldal}
+\end{figure}
+
 \begin{java}[caption={Az AuthController regisztrációs POST végpontja},label=java:authcontroller]
 @PostMapping("/register")
 public String registerUser(
@@ -680,7 +694,17 @@ A keresés a szerepkör alapján már szűrt listán fut, tehát egy oktató csa
 \subsection{Kurzus létrehozása}
 
 A kurzus létrehozása a \texttt{POST /courses/create} végponton keresztül történik. A kontroller először ellenőrzi, hogy a bejelentkezett felhasználó rendelkezik-e a szükséges jogosultsággal, majd beállítja a kurzus oktatóját a bejelentkezett felhasználóra, és elmenti az adatbázisba. Sikeres mentés esetén a felhasználó a kurzuslistára kerül visszairányításra, ahol az újonnan létrehozott kurzus már megjelenik. A kurzus létrehozásakor csak az alapadatok — cím, leírás és láthatóság — kerülnek megadásra; a leckék és prezentációk hozzáadása a létrehozás után, a kurzus kezelőfelületén (\texttt{/courses/{id}/manage}) keresztül történik.
-\begin{java}[caption={Egyszerűsített kurzuslétrehozás},label=java:createcourse]
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{images/Kurzus_kezelese.png}
+    \caption{Kurzus kezelési oldal}
+    \label{fig:Kurzus_kezelese}
+\end{figure}
+
+\begin{java}[caption={Kurzuslétrehozás},label=java:createcourse]
 @PostMapping("/create")
 public String createCourse(
         @Valid @ModelAttribute("course") Course course,
@@ -732,6 +756,13 @@ public class LessonController {
 \subsection{Kurzusnézet leckékkel}
 
 A \texttt{CourseController} kurzus-megtekintési végpontja a leckéket is betölti a modellbe, hogy a hallgatók a kurzus oldalán lecke-szinten is böngészhessenek.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{images/Hallgatoi_nezet.png}
+    \caption{Diákok nézete a beíratkozott kurzusra}
+    \label{fig:Hallgatoi_nezet}
+\end{figure}
 
 \begin{java}[caption={Kurzusnézet — leckék betöltése a modellbe},label=java:viewcourse]
 @GetMapping("/{id}")

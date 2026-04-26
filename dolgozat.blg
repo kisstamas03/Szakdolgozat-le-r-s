@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d
+This is BibTeX, Version 0.99e
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: dolgozat.aux
 Reallocating 'name_of_file' (item size: 1) to 9 items.
@@ -40,35 +40,35 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: dolgozat-blx.bib
 Database file #2: dolgozat.bib
-Biblatex version: 3.19
+Biblatex version: 3.21
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 You've used 22 entries,
-            6399 wiz_defined-function locations,
-            1324 strings with 11652 characters,
-and the built_in function-call counts, 129484 in all, are:
+            6402 wiz_defined-function locations,
+            1324 strings with 11659 characters,
+and the built_in function-call counts, 129589 in all, are:
 = -- 9632
 > -- 2300
 < -- 819
 + -- 3261
 - -- 704
-* -- 8499
+* -- 8520
 := -- 13057
 add.period$ -- 0
 call.type$ -- 22
 change.case$ -- 489
 chr.to.int$ -- 42
 cite$ -- 42
-duplicate$ -- 13942
-empty$ -- 11662
+duplicate$ -- 13963
+empty$ -- 11683
 format.name$ -- 1232
-if$ -- 27165
+if$ -- 27186
 int.to.chr$ -- 0
 int.to.str$ -- 67
 missing$ -- 0
 newline$ -- 587
 num.names$ -- 1212
-pop$ -- 7273
+pop$ -- 7294
 preamble$ -- 1
 purify$ -- 566
 quote$ -- 0
